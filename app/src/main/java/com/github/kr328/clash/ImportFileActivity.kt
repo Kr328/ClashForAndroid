@@ -78,7 +78,7 @@ class ImportFileActivity : BaseActivity() {
                     activity_import_file_saving.visibility = View.GONE
                     Snackbar.make(
                         activity_import_file_root,
-                        R.string.clash_import_file_empty_name,
+                        R.string.clash_import_empty_name,
                         Snackbar.LENGTH_LONG
                     ).show()
                 }

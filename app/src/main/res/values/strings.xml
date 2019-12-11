@@ -48,8 +48,9 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
-    <string name="clash_import_file_empty_name">Empty Name</string>
+    <string name="clash_import_empty_name">Empty Name</string>
     <string name="clash_import_file_empty_path">Empty Path</string>
+    <string name="clash_import_url_empty_url">Empty Url</string>
     <string name="clash_profile_invalid">Invalid Config: %s</string>
 
     <string name="clash_proxy_group_title">%s - %s</string>

@@ -80,10 +80,24 @@ class ImportUrlActivity : BaseActivity() {
             val url = elements[1] as FormAdapter.TextType
 
             if ( name.content.isBlank() ) {
+                runOnUiThread{
+                    Snackbar.make(
+                        activity_import_url_root,
+                        R.string.clash_import_empty_name,
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
                 return
             }
 
             if ( url.content.isBlank() ) {
+                runOnUiThread{
+                    Snackbar.make(
+                        activity_import_url_root,
+                        R.string.clash_import_url_empty_url,
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
                 return
             }
 
