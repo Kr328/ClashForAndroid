@@ -56,6 +56,8 @@ class ImportUrlActivity : BaseActivity() {
         if ( intent.action == Intent.ACTION_VIEW
             && intent.data?.scheme == "clash"
             && intent.data?.host == "install-config") {
+            (elements[0] as FormAdapter.TextType).content =
+                intent.data?.getQueryParameter("name") ?: ""
             (elements[1] as FormAdapter.TextType).content =
                 intent.data?.getQueryParameter("url") ?: ""
         }
