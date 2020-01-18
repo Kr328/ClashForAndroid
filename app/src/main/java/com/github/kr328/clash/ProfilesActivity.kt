@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import android.content.pm.PackageInfo
 import com.github.kr328.clash.adapter.ProfileAdapter
 import com.github.kr328.clash.core.event.ErrorEvent
 import com.github.kr328.clash.core.event.ProfileChangedEvent
@@ -146,7 +147,11 @@ class ProfilesActivity : BaseActivity() {
             thread {
                 try {
                     val connection = URL(url).openConnection()
-
+                    connection.setRequestProperty(
+                        getString(R.string.clash_profile_invalid,
+                                  packageManager.getPackageInfo(packageName, 0).let(PackageInfo::versionName)
+                                 )
+                    )
                     val data = with(connection) {
                         connectTimeout = ImportUrlActivity.DEFAULT_TIMEOUT
                         connect()
