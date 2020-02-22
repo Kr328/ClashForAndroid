@@ -85,6 +85,8 @@ class ClashService : BaseService() {
     override fun onDestroy() {
         cancel()
 
+        isServiceRunning = false
+
         Clash.stopTunDevice()
         Clash.stop()
 
@@ -93,8 +95,6 @@ class ClashService : BaseService() {
         broadcastClashStopped(this, stopReason)
 
         unregisterReceiver(reloadReceiver)
-
-        isServiceRunning = false
 
         super.onDestroy()
     }

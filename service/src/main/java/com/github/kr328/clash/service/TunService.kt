@@ -111,6 +111,9 @@ class TunService : VpnService(), CoroutineScope by MainScope() {
 
         Log.i("TunService.onDestroy")
 
+        if (ClashService.isServiceRunning)
+            stopService(ClashService::class.intent)
+
         super.onDestroy()
     }
 
