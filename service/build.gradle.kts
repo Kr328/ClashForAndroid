@@ -71,7 +71,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
-    implementation("androidx.core:core-ktx:$ktxVersion")
+    implementation("androidx.core:core-ktx:$coreVersion")
     implementation("dev.rikka.rikkax.preference:multiprocess:$muiltprocessVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
 }
