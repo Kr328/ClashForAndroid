@@ -208,4 +208,7 @@
     <string name="active_unsaved_tips">配置文件需要在激活之前保存</string>
     <string name="mode_switch_tips">僅在本次會話中有效</string>
     <string name="import_">導入</string>
+    <string name="sources">源代碼</string>
+    <string name="clash_core">Clash 核心</string>
+    <string name="name_server_policy">Name Server 策略</string>
 </resources>

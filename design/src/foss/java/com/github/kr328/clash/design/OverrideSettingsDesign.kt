@@ -378,6 +378,15 @@ class OverrideSettingsDesign(
                 configure = dnsDependencies::add,
             )
 
+            editableTextMap(
+                value = configuration.dns::nameserverPolicy,
+                keyAdapter = TextAdapter.String,
+                valueAdapter = TextAdapter.String,
+                title = R.string.name_server_policy,
+                placeholder = R.string.dont_modify,
+                configure = dnsDependencies::add,
+            )
+
             dns.listener?.onChanged()
         }
 

@@ -159,6 +159,7 @@
     <string name="geoip_fallback">GeoIP Fallback</string>
     <string name="ipcidr_fallback">IPCIDR Fallback</string>
     <string name="domain_fallback">Domain Fallback</string>
+    <string name="name_server_policy">Name Server Policy</string>
 
     <string name="dont_modify">Do not modify</string>
     <string name="empty">Empty</string>

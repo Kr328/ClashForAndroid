@@ -80,7 +80,10 @@ data class ConfigurationOverride(
         var fakeIpFilter: List<String>? = null,
 
         @SerialName("fallback-filter")
-        val fallbackFilter: DnsFallbackFilter = DnsFallbackFilter()
+        val fallbackFilter: DnsFallbackFilter = DnsFallbackFilter(),
+
+        @SerialName("nameserver-policy")
+        var nameserverPolicy: Map<String, String>? = null,
     )
 
     @Serializable
