@@ -24,7 +24,7 @@ class Environment(
             .resolve("${abi.compiler}${minSdkVersion}-clang")
 
         return mapOf(
-            "CC" to compiler.absolutePath,
+            "CC" to compiler.absolutePath.toString().replace("\\", "/"),
             "GOOS" to "android",
             "GOARCH" to abi.goArch,
             "GOARM" to abi.goArm,
@@ -36,7 +36,7 @@ class Environment(
     fun ofLwipBuild(abi: NativeAbi): Map<String, String> {
         return mapOf(
             "CMAKE_SYSTEM_NAME" to "Android",
-            "CMAKE_ANDROID_NDK" to ndkDirectory.absolutePath,
+            "CMAKE_ANDROID_NDK" to ndkDirectory.absolutePath.toString().replace("\\", "/"),
             "CMAKE_ANDROID_ARCH_ABI" to abi.value,
             "CMAKE_SYSTEM_VERSION" to minSdkVersion.toString()
         )
