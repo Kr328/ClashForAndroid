@@ -40,7 +40,7 @@ dependencies {
     compileOnly(project(":hideapi"))
 
     implementation(kotlin("stdlib-jdk7"))
-    implementation("androidx.core:core-ktx:$ktxVersion")
+    implementation("androidx.core:core-ktx:$coreVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
 }
 

@@ -115,7 +115,7 @@ dependencies {
 
     implementation(kotlin("stdlib-jdk7"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
-    implementation("androidx.core:core-ktx:$ktxVersion")
+    implementation("androidx.core:core-ktx:$coreVersion")
     implementation("androidx.activity:activity:$activityVersion")
     implementation("androidx.appcompat:appcompat:$appcompatVersion")
     implementation("androidx.coordinatorlayout:coordinatorlayout:$coordinatorlayoutVersion")
