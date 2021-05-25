@@ -1,5 +1,3 @@
-@file:Suppress("UNUSED_VARIABLE")
-
 import java.net.URL
 
 allprojects {
@@ -9,18 +7,19 @@ allprojects {
     }
 }
 
-task("clean", type = Delete::class) {
-    delete(rootProject.buildDir)
-}
+tasks {
+    create<Delete>("clean") {
+        delete(rootProject.buildDir)
+    }
+    withType<Wrapper>().configureEach {
+        distributionType = Wrapper.DistributionType.ALL
 
-tasks.named<Wrapper>("wrapper") {
-    distributionType = Wrapper.DistributionType.ALL
+        doLast {
+            val sha256 = URL("$distributionUrl.sha256").openStream()
+                .use { it.reader().readText().trim() }
 
-    doLast {
-        val sha256 = URL("$distributionUrl.sha256").openStream()
-            .use { it.reader().readText().trim() }
-
-        file("gradle/wrapper/gradle-wrapper.properties")
-            .appendText("distributionSha256Sum=$sha256")
+            file("gradle/wrapper/gradle-wrapper.properties")
+                .appendText("distributionSha256Sum=$sha256")
+        }
     }
 }
