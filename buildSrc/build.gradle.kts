@@ -3,16 +3,10 @@ plugins {
     `java-gradle-plugin`
 }
 
-repositories {
-    mavenCentral()
-    google()
-}
+apply("../gradle/extra.gradle.kts")
 
 dependencies {
-    implementation(kotlin("gradle-plugin"))
-    implementation(kotlin("serialization"))
-    implementation("com.android.tools.build:gradle:4.2.1")
-    implementation("com.google.devtools.ksp:symbol-processing-gradle-plugin:1.5.10-1.0.0-beta01")
+    implementation(rootProject.extra["androidPlugin"].toString())
 }
 
 gradlePlugin {

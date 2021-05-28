@@ -2,11 +2,22 @@
 
 import java.net.URL
 
-allprojects {
+buildscript {
+    apply(from = "gradle/extra.gradle.kts")
     repositories {
         google()
-        mavenCentral()
+        gradlePluginPortal()
     }
+    dependencies {
+        classpath(rootProject.extra["androidPlugin"].toString())
+        classpath(rootProject.extra["kotlinPlugin"].toString())
+        classpath(rootProject.extra["serializationPlugin"].toString())
+        classpath(rootProject.extra["kspPlugin"].toString())
+    }
+}
+
+allprojects {
+    apply(from = "${rootDir.path}/gradle/extra.gradle.kts")
 }
 
 task("clean", type = Delete::class) {
