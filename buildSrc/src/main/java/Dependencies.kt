@@ -16,7 +16,7 @@ object Libs {
         "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion"
     const val viewPager2 = "androidx.viewpager2:viewpager2:1.0.0"
 
-    const val roomApt = "androidx.room:room-compiler:$roomVersion"
+    const val roomCompiler = "androidx.room:room-compiler:$roomVersion"
 
     val room = arrayOf(
         "androidx.room:room-runtime:$roomVersion",
