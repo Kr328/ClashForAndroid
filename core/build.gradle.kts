@@ -76,10 +76,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
 }
 
-repositories {
-    mavenCentral()
-}
-
 task("downloadGeoipDatabase") {
     val databaseFile = geoipOutput.resolve("Country.mmdb")
     val moduleFile = geoipOutput.resolve("go.mod")

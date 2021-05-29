@@ -33,8 +33,3 @@ dependencies {
     implementation("androidx.core:core-ktx:$coreVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
 }
-
-repositories {
-    mavenCentral()
-    google()
-}
