@@ -3,7 +3,6 @@ package com.github.kr328.clash
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.Service
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -20,6 +19,7 @@ import com.github.kr328.clash.common.util.intent
 import com.github.kr328.clash.core.model.LogMessage
 import com.github.kr328.clash.log.LogcatCache
 import com.github.kr328.clash.log.LogcatWriter
+import com.github.kr328.clash.service.BaseService
 import com.github.kr328.clash.service.RemoteService
 import com.github.kr328.clash.service.remote.ILogObserver
 import com.github.kr328.clash.service.remote.IRemoteService
@@ -30,7 +30,7 @@ import kotlinx.coroutines.channels.Channel
 import java.io.IOException
 import java.util.*
 
-class LogcatService : Service(), CoroutineScope by CoroutineScope(Dispatchers.Default), IInterface {
+class LogcatService : BaseService(), IInterface {
     private val cache = LogcatCache()
 
     private val connection = object : ServiceConnection {
