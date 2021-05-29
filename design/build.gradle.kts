@@ -19,16 +19,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        named("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
     productFlavors {
         create("foss") {
             dimension = "foss"
