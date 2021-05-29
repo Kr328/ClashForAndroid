@@ -71,9 +71,9 @@ android {
 dependencies {
     api(project(":common"))
 
-    implementation("androidx.core:core-ktx:$coreVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+    implementation(Libs.coroutines)
+    implementation(Libs.core)
+    implementation(Libs.serializationJson)
 }
 
 task("downloadGeoipDatabase") {

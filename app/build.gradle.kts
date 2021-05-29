@@ -108,17 +108,18 @@ dependencies {
     api(project(":design"))
     api(project(":common"))
 
-    premiumImplementation("com.microsoft.appcenter:appcenter-analytics:$appcenterVersion")
-    premiumImplementation("com.microsoft.appcenter:appcenter-crashes:$appcenterVersion")
+    Libs.appCenter.forEach {
+        premiumImplementation(it)
+    }
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
-    implementation("androidx.core:core-ktx:$coreVersion")
-    implementation("androidx.activity:activity:$activityVersion")
-    implementation("androidx.appcompat:appcompat:$appcompatVersion")
-    implementation("androidx.coordinatorlayout:coordinatorlayout:$coordinatorlayoutVersion")
-    implementation("androidx.recyclerview:recyclerview:$recyclerviewVersion")
-    implementation("androidx.fragment:fragment:$fragmentVersion")
-    implementation("com.google.android.material:material:$materialVersion")
+    implementation(Libs.coroutines)
+    implementation(Libs.core)
+    implementation(Libs.appCompat)
+    implementation(Libs.activity)
+    implementation(Libs.fragment)
+    implementation(Libs.coordinatorLayout)
+    implementation(Libs.recyclerView)
+    implementation(Libs.material)
 }
 
 task("cleanRelease", type = Delete::class) {
