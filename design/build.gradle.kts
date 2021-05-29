@@ -38,7 +38,7 @@ dependencies {
     api(project(":core"))
     api(project(":service"))
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
     implementation("androidx.core:core-ktx:$coreVersion")
     implementation("androidx.appcompat:appcompat:$appcompatVersion")
     implementation("androidx.activity:activity:$activityVersion")

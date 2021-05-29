@@ -21,5 +21,5 @@ dependencies {
     compileOnly(project(":hideapi"))
 
     implementation("androidx.core:core-ktx:$coreVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
 }
