@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
     id("kotlinx-serialization")
     id("com.google.devtools.ksp")
 }
@@ -32,7 +33,7 @@ android {
 
 dependencies {
     ksp(project(":kaidl:kaidl"))
-    ksp(Libs.roomCompiler)
+    kapt(Libs.roomApt)
 
     api(project(":core"))
     api(project(":common"))
