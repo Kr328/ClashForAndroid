@@ -1,6 +1,5 @@
 private const val appCenterVersion = "4.1.1"
 private const val serializationVersion = "1.2.1"
-private const val lifecycleVersion = "2.3.1"
 private const val roomVersion = "2.3.0"
 
 object Libs {
@@ -19,12 +18,6 @@ object Libs {
 
     const val roomApt = "androidx.room:room-compiler:$roomVersion"
 
-    val lifecycle = arrayOf(
-        "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion",
-        "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion",
-        "androidx.lifecycle:lifecycle-service:$lifecycleVersion",
-        "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
-    )
     val room = arrayOf(
         "androidx.room:room-runtime:$roomVersion",
         "androidx.room:room-ktx:$roomVersion"
