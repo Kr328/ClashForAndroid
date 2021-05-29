@@ -48,7 +48,6 @@ dependencies {
     api(project(":core"))
     api(project(":common"))
 
-    implementation(kotlin("stdlib-jdk7"))
     implementation(project(":kaidl:kaidl-runtime"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
     implementation("androidx.room:room-runtime:$roomVersion")
