@@ -53,4 +53,4 @@ See also [PRIVACY_POLICY.md](./PRIVACY_POLICY.md)
    ./gradlew app:assembleFossRelease
    ```
 
-6. Pick `app-foss-<arch>-release.apk` in `app/build/outputs/apk/foss/release/`
+6. Pick `app-foss-<arch>-release-signed.apk` in `app/build/outputs/apk/foss/release/`
