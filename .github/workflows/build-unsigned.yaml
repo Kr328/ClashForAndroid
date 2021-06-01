@@ -1,5 +1,29 @@
 name: Build Unsigned
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - '.idea/**'
+      - '.gitignore'
+      - '.gitmodules'
+      - '**.md'
+      - 'LICENSE'
+      - 'NOTICE'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - '.idea/**'
+      - '.gitignore'
+      - '.gitmodules'
+      - '**.md'
+      - 'LICENSE'
+      - 'NOTICE'
+
 jobs:
   BuildUnsigned:
     runs-on: ubuntu-latest
@@ -8,17 +32,41 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: recursive
+
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.16
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
+
       - name: Setup Cmake & Ninja
         uses: lukka/get-cmake@latest
+
       - name: Build
         run: ./gradlew --no-daemon app:assembleRelease
+
+      - name: Generate Name For Artifact
+        uses: actions/github-script@v4
+        id: version
+        with:
+          result-encoding: string
+          script: |
+            core.setOutput('repo', context.repo.repo);
+            core.setOutput('beta', process.env.GITHUB_SHA.slice(0,7));
+
+      - name: Print The Output Package
+        run: |
+          ls -la ${{ github.workspace }}/app/build/outputs/apk/foss/release/
+
+      - name: Upload The Output Package
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{steps.version.outputs.repo}}-${{steps.version.outputs.beta}}
+          path: '${{ github.workspace }}/app/build/outputs/apk/foss/release/'
