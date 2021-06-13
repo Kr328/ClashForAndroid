@@ -5,7 +5,7 @@
     <string name="access_control_mode">訪問控制模式</string>
     <string name="access_control_packages">訪問控制軟體套件清單</string>
     <string name="append_system_dns">追加作業系統 DNS</string>
-    <string name="application_broken">軟體損壞</string>
+    <string name="application_broken">軟體損毀</string>
     <string name="application_name">Clash for Android</string>
     <string name="auto_update">自動更新</string>
     <string name="behavior">行為</string>
@@ -97,7 +97,7 @@
     <string name="select_all">全選</string>
     <string name="select_invert">反選</string>
     <string name="select_none">清除</string>
-    <string name="app">應用</string>
+    <string name="app">軟體</string>
     <string name="follow_system_android_10">跟隨作業系統 (Android 10+)</string>
     <string name="always_dark">總是深色模式</string>
     <string name="always_light">總是淺色模式</string>
@@ -197,7 +197,7 @@
     <string name="keyword">關鍵字</string>
     <string name="invalid_log_file">無效的日誌檔</string>
     <string name="application_crashed">軟體崩潰</string>
-    <string name="application_broken_tips">應用缺少必要的運作元件，這通常是由下載不完整的 apk 導致。</string>
+    <string name="application_broken_tips">軟體缺少必要的運作元件，這通常是由於下載了不完整的 apk 而導致。</string>
     <string name="reinstall">重新安裝</string>
     <string name="github_releases">Github Releases</string>
     <string name="unable_to_start_vpn">無法啟動 VPN 元件</string>
