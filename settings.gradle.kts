@@ -8,10 +8,3 @@ include(":common")
 include(":hideapi")
 include(":kaidl:kaidl")
 include(":kaidl:kaidl-runtime")
-
-pluginManagement {
-    repositories {
-        mavenCentral()
-        google()
-    }
-}

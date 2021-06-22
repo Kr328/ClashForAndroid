@@ -19,16 +19,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        named("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
     productFlavors {
         create("foss") {
             dimension = "foss"
@@ -41,15 +31,6 @@ android {
     buildFeatures {
         dataBinding = true
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
@@ -57,14 +38,14 @@ dependencies {
     api(project(":core"))
     api(project(":service"))
 
-    implementation(kotlin("stdlib-jdk7"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
-    implementation("androidx.core:core-ktx:$coreVersion")
-    implementation("androidx.appcompat:appcompat:$appcompatVersion")
-    implementation("androidx.activity:activity:$activityVersion")
-    implementation("com.google.android.material:material:$materialVersion")
-    implementation("androidx.coordinatorlayout:coordinatorlayout:$coordinatorlayoutVersion")
-    implementation("androidx.recyclerview:recyclerview:$recyclerviewVersion")
-    implementation("androidx.fragment:fragment:$fragmentVersion")
-    implementation("androidx.viewpager2:viewpager2:$viewpagerVersion")
+    implementation(Libs.coroutines)
+    implementation(Libs.core)
+    implementation(Libs.appCompat)
+    implementation(Libs.activity)
+    implementation(Libs.fragment)
+    implementation(Libs.viewPager2)
+    implementation(Libs.recyclerView)
+    implementation(Libs.material)
+    implementation(Libs.coordinatorLayout)
+    implementation(Libs.serializationJson)
 }
