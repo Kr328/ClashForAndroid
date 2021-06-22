@@ -26,6 +26,10 @@ android {
         resValue("integer", "release_code", "$buildVersionCode")
     }
 
+    packagingOptions {
+        exclude("DebugProbesKt.bin")
+    }
+
     buildTypes {
         named("release") {
             isMinifyEnabled = true

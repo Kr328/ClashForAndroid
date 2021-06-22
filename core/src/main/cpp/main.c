@@ -98,15 +98,15 @@ Java_com_github_kr328_clash_core_bridge_Bridge_nativeNotifyInstalledAppChanged(J
 JNIEXPORT void JNICALL
 Java_com_github_kr328_clash_core_bridge_Bridge_nativeStartTun(JNIEnv *env, jobject thiz,
                                                               jint fd, jint mtu,
-                                                              jstring gateway, jstring dns,
+                                                              jstring dns, jstring blocking,
                                                               jobject cb) {
     TRACE_METHOD();
 
-    scoped_string _gateway = get_string(gateway);
+    scoped_string _blocking = get_string(blocking);
     scoped_string _dns = get_string(dns);
     jobject _interface = new_global(cb);
 
-    startTun(fd, mtu, _gateway, _dns, _interface);
+    startTun(fd, mtu, _dns, _blocking, _interface);
 }
 
 JNIEXPORT void JNICALL

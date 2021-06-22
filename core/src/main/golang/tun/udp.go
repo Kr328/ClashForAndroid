@@ -7,7 +7,7 @@ import (
 	"github.com/Dreamacro/clash/transport/socks5"
 	"github.com/kr328/tun2socket"
 
-	adapters "github.com/Dreamacro/clash/adapters/inbound"
+	"github.com/Dreamacro/clash/adapter/inbound"
 	"github.com/Dreamacro/clash/common/pool"
 	C "github.com/Dreamacro/clash/constant"
 	"github.com/Dreamacro/clash/tunnel"
@@ -44,6 +44,7 @@ func (a *adapter) udp() {
 	defer log.Infoln("[ATUN] UDP receiver exited")
 	defer a.stack.Close()
 
+read:
 	for {
 		buf := pool.Get(a.mtu)
 
@@ -60,11 +61,11 @@ func (a *adapter) udp() {
 			continue
 		}
 
-		// drop all packets send to gateway
-		if a.gateway.Contains(tAddr.IP) {
-			pool.Put(buf)
-
-			continue
+		// drop all packet send to blocking list
+		for _, b := range a.blocking {
+			if b.Contains(tAddr.IP) {
+				continue read
+			}
 		}
 
 		pkt := &packet{
@@ -73,9 +74,7 @@ func (a *adapter) udp() {
 			data:  buf[:n],
 		}
 
-		adapter := adapters.NewPacket(socks5.ParseAddrToSocksAddr(tAddr), pkt, C.SOCKS)
-
-		tunnel.AddPacket(adapter)
+		tunnel.UDPIn() <- inbound.NewPacket(socks5.ParseAddrToSocksAddr(tAddr), pkt, C.SOCKS)
 	}
 }
 

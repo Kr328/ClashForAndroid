@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/Dreamacro/clash/log"
 	"github.com/dlclark/regexp2"
@@ -14,6 +15,11 @@ import (
 
 	"github.com/Dreamacro/clash/config"
 	"github.com/Dreamacro/clash/dns"
+)
+
+const (
+	defaultHealthCheckUrl      = "https://www.gstatic.com/generate_204"
+	defaultHealthCheckInterval = time.Hour
 )
 
 var processors = []processor{
@@ -88,7 +94,13 @@ func patchProviders(cfg *config.RawConfig, profileDir string) error {
 
 func patchProxyGroup(cfg *config.RawConfig, _ string) error {
 	for _, g := range cfg.ProxyGroup {
-		g["lazy"] = false
+		if _, exist := g["url"]; !exist {
+			g["url"] = defaultHealthCheckUrl
+		}
+
+		if _, exist := g["interval"]; !exist {
+			g["interval"] = int(defaultHealthCheckInterval.Seconds())
+		}
 	}
 
 	return nil

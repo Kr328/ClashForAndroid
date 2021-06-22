@@ -211,4 +211,6 @@
     <string name="sources">源代码</string>
     <string name="clash_core">Clash 核心</string>
     <string name="name_server_policy">Name Server 策略</string>
+    <string name="block_loopback">阻止本地回环</string>
+    <string name="block_loopback_summary">阻止本地回环连接</string>
 </resources>

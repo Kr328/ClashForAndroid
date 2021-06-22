@@ -8,25 +8,19 @@ A Graphical user interface of [clash](https://github.com/Dreamacro/clash) for An
 
 Fully feature of [clash](https://github.com/Dreamacro/clash) ~~(Exclude `external-controller`~~
 
-
-
 ### Requirement
 
-* Android 5.0+ (minimum)
-* Android 7.0+ (recommend)
-* `armeabi-v7a` , `arm64-v8a`, `x86` or `x86_64` Architecture
+- Android 5.0+ (minimum)
+- Android 7.0+ (recommend)
+- `armeabi-v7a` , `arm64-v8a`, `x86` or `x86_64` Architecture
 
 ### License
 
 See also [LICENSE](./LICENSE) and [NOTICE](./NOTICE)
 
-
-
-###  Privacy Policy
+### Privacy Policy
 
 See also [PRIVACY_POLICY.md](./PRIVACY_POLICY.md)
-
-
 
 ### Build
 
@@ -38,7 +32,7 @@ See also [PRIVACY_POLICY.md](./PRIVACY_POLICY.md)
 
 2. Install **OpenJDK 11**, **Android SDK**, **CMake** and **Golang**
 
-3. Create `local.properties` in project root with 
+3. Create `local.properties` in project root with
 
    ```properties
    sdk.dir=/path/to/android-sdk
@@ -51,7 +45,7 @@ See also [PRIVACY_POLICY.md](./PRIVACY_POLICY.md)
    storePassword=<key store password>
    keyAlias=<key alias>
    keyPassword=<key password>
-   ``` 
+   ```
 
 5. Build
 
@@ -59,4 +53,4 @@ See also [PRIVACY_POLICY.md](./PRIVACY_POLICY.md)
    ./gradlew app:assembleFossRelease
    ```
 
-6. Pick `app-release-<arch>.apk` in `app/build/outputs/apks`
+6. Pick `app-foss-<arch>-release-signed.apk` in `app/build/outputs/apk/foss/release/`

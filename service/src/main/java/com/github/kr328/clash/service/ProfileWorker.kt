@@ -14,7 +14,6 @@ import com.github.kr328.clash.common.compat.pendingIntentFlags
 import com.github.kr328.clash.common.constants.Components
 import com.github.kr328.clash.common.constants.Intents
 import com.github.kr328.clash.common.id.UndefinedIds
-import com.github.kr328.clash.common.log.Log
 import com.github.kr328.clash.common.util.setUUID
 import com.github.kr328.clash.common.util.uuid
 import com.github.kr328.clash.service.data.ImportedDao
@@ -148,17 +147,12 @@ class ProfileWorker : BaseService() {
 
         NotificationManagerCompat.from(applicationContext)
             .notify(id, notification)
-
-        Log.d("notify processing $name: id = $id")
-
         try {
             block()
         } finally {
             withContext(NonCancellable) {
                 NotificationManagerCompat.from(applicationContext)
                     .cancel(id)
-
-                Log.d("notify processed $name: id = $id")
             }
         }
     }
@@ -190,8 +184,6 @@ class ProfileWorker : BaseService() {
 
         NotificationManagerCompat.from(this)
             .notify(id, notification)
-
-        Log.d("notify completed $name: id = $id")
     }
 
     private fun failed(uuid: UUID, name: String, reason: String) {
@@ -207,8 +199,6 @@ class ProfileWorker : BaseService() {
 
         NotificationManagerCompat.from(this)
             .notify(id, notification)
-
-        Log.d("notify failed $name: id = $id")
     }
 
     companion object {

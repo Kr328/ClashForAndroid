@@ -25,13 +25,12 @@ type Status struct {
 
 var client = &http.Client{
 	Transport: &http.Transport{
-		// from http.DefaultTransport
-		MaxIdleConns:          100,
-		IdleConnTimeout:       90 * time.Second,
+		DisableKeepAlives:     true,
 		TLSHandshakeTimeout:   10 * time.Second,
 		ExpectContinueTimeout: 1 * time.Second,
 		DialContext:           dialer.DefaultTunnelDialer,
 	},
+	Timeout: 60 * time.Second,
 }
 
 func openUrl(url string) (io.ReadCloser, error) {

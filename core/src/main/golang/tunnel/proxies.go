@@ -4,11 +4,11 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/Dreamacro/clash/adapter"
 	"github.com/dlclark/regexp2"
 
-	"github.com/Dreamacro/clash/adapters/outbound"
-	"github.com/Dreamacro/clash/adapters/outboundgroup"
-	"github.com/Dreamacro/clash/adapters/provider"
+	"github.com/Dreamacro/clash/adapter/outboundgroup"
+	"github.com/Dreamacro/clash/adapter/provider"
 	C "github.com/Dreamacro/clash/constant"
 	"github.com/Dreamacro/clash/log"
 	"github.com/Dreamacro/clash/tunnel"
@@ -60,7 +60,7 @@ func QueryProxyGroupNames(excludeNotSelectable bool) []string {
 		return []string{}
 	}
 
-	global := tunnel.Proxies()["GLOBAL"].(*outbound.Proxy).ProxyAdapter.(outboundgroup.ProxyGroup)
+	global := tunnel.Proxies()["GLOBAL"].(*adapter.Proxy).ProxyAdapter.(outboundgroup.ProxyGroup)
 	proxies := global.Providers()[0].Proxies()
 	result := make([]string, 0, len(proxies)+1)
 
@@ -69,7 +69,7 @@ func QueryProxyGroupNames(excludeNotSelectable bool) []string {
 	}
 
 	for _, p := range proxies {
-		if _, ok := p.(*outbound.Proxy).ProxyAdapter.(outboundgroup.ProxyGroup); ok {
+		if _, ok := p.(*adapter.Proxy).ProxyAdapter.(outboundgroup.ProxyGroup); ok {
 			if !excludeNotSelectable || p.Type() == C.Selector {
 				result = append(result, p.Name())
 			}
@@ -88,7 +88,7 @@ func QueryProxyGroup(name string, sortMode SortMode, uiSubtitlePattern *regexp2.
 		return nil
 	}
 
-	g, ok := p.(*outbound.Proxy).ProxyAdapter.(outboundgroup.ProxyGroup)
+	g, ok := p.(*adapter.Proxy).ProxyAdapter.(outboundgroup.ProxyGroup)
 	if !ok {
 		log.Warnln("Query group `%s`: invalid type %s", name, p.Type().String())
 
@@ -136,7 +136,7 @@ func PatchSelector(selector, name string) bool {
 		return false
 	}
 
-	g, ok := p.(*outbound.Proxy).ProxyAdapter.(outboundgroup.ProxyGroup)
+	g, ok := p.(*adapter.Proxy).ProxyAdapter.(outboundgroup.ProxyGroup)
 	if !ok {
 		log.Warnln("Patch selector `%s`: invalid type %s", selector, p.Type().String())
 
@@ -171,7 +171,7 @@ func collectProviders(providers []provider.ProxyProvider, uiSubtitlePattern *reg
 			subtitle := px.Type().String()
 
 			if uiSubtitlePattern != nil {
-				if _, ok := px.(*outbound.Proxy).ProxyAdapter.(outboundgroup.ProxyGroup); !ok {
+				if _, ok := px.(*adapter.Proxy).ProxyAdapter.(outboundgroup.ProxyGroup); !ok {
 					runes := []rune(name)
 					match, err := uiSubtitlePattern.FindRunesMatch(runes)
 					if err == nil && match != nil {

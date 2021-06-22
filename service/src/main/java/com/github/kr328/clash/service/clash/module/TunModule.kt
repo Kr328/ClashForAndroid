@@ -16,7 +16,7 @@ class TunModule(private val vpn: VpnService) : Module<Unit>(vpn) {
     data class TunDevice(
         val fd: Int,
         val mtu: Int,
-        val gateway: String,
+        val blocking: String,
         val dns: String,
     )
 
@@ -57,8 +57,8 @@ class TunModule(private val vpn: VpnService) : Module<Unit>(vpn) {
         Clash.startTun(
             fd = device.fd,
             mtu = device.mtu,
-            gateway = device.gateway,
             dns = device.dns,
+            blocking = device.blocking,
             markSocket = vpn::protect,
             querySocketUid = this::queryUid
         )

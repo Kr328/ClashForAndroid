@@ -3,6 +3,7 @@ package tun
 import (
 	"net"
 	"os"
+	"strings"
 	"sync"
 	"syscall"
 
@@ -10,13 +11,13 @@ import (
 )
 
 type adapter struct {
-	device  *os.File
-	stack   tun2socket.Stack
-	gateway *net.IPNet
-	dns     net.IP
-	mtu     int
-	once    sync.Once
-	stop    func()
+	device   *os.File
+	stack    tun2socket.Stack
+	blocking []*net.IPNet
+	dns      net.IP
+	mtu      int
+	once     sync.Once
+	stop     func()
 }
 
 var lock sync.Mutex
@@ -27,7 +28,7 @@ func (a *adapter) close() {
 	_ = a.device.Close()
 }
 
-func Start(fd, mtu int, gateway, dns string, stop func()) error {
+func Start(fd, mtu int, dns string, blocking string, stop func()) error {
 	lock.Lock()
 	defer lock.Unlock()
 
@@ -46,16 +47,28 @@ func Start(fd, mtu int, gateway, dns string, stop func()) error {
 	}
 
 	dn := net.ParseIP(dns)
-	_, gw, _ := net.ParseCIDR(gateway)
+
+	var blk []*net.IPNet
+
+	for _, b := range strings.Split(blocking, ";") {
+		_, n, err := net.ParseCIDR(b)
+		if err != nil {
+			device.Close()
+
+			return err
+		}
+
+		blk = append(blk, n)
+	}
 
 	instance = &adapter{
-		device:  device,
-		stack:   stack,
-		gateway: gw,
-		dns:     dn,
-		mtu:     mtu,
-		once:    sync.Once{},
-		stop:    stop,
+		device:   device,
+		stack:    stack,
+		blocking: blk,
+		dns:      dn,
+		mtu:      mtu,
+		once:     sync.Once{},
+		stop:     stop,
 	}
 
 	go instance.rx()

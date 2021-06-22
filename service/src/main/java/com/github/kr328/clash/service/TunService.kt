@@ -216,11 +216,16 @@ class TunService : VpnService(), CoroutineScope by CoroutineScope(Dispatchers.De
                 }
             }
 
+            val blocking = mutableListOf("$TUN_GATEWAY/$TUN_SUBNET_PREFIX")
+            if (store.blockLoopback) {
+                blocking.add(NET_SUBNET_LOOPBACK)
+            }
+
             TunModule.TunDevice(
                 fd = establish()?.detachFd()
                     ?: throw NullPointerException("Establish VPN rejected by system"),
                 mtu = TUN_MTU,
-                gateway = "$TUN_GATEWAY/$TUN_SUBNET_PREFIX",
+                blocking = blocking.joinToString(";"),
                 dns = if (store.dnsHijacking) NET_ANY else TUN_DNS,
             )
         }
@@ -234,5 +239,6 @@ class TunService : VpnService(), CoroutineScope by CoroutineScope(Dispatchers.De
         private const val TUN_GATEWAY = "172.19.0.1"
         private const val TUN_DNS = "172.19.0.2"
         private const val NET_ANY = "0.0.0.0"
+        private const val NET_SUBNET_LOOPBACK = "127.0.0.0/8"
     }
 }

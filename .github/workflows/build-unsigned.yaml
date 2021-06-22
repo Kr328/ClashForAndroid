@@ -1,5 +1,28 @@
 name: Build Unsigned
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - '.idea/**'
+      - '.gitignore'
+      - '.gitmodules'
+      - '**.md'
+      - 'LICENSE'
+      - 'NOTICE'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - '.idea/**'
+      - '.gitignore'
+      - '.gitmodules'
+      - '**.md'
+      - 'LICENSE'
+      - 'NOTICE'
 jobs:
   BuildUnsigned:
     runs-on: ubuntu-latest

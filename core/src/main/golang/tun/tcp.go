@@ -20,6 +20,7 @@ func (a *adapter) tcp() {
 	defer log.Infoln("[ATUN] TCP listener exited")
 	defer a.stack.Close()
 
+accept:
 	for {
 		conn, err := a.stack.TCP().Accept()
 		if err != nil {
@@ -34,9 +35,13 @@ func (a *adapter) tcp() {
 			continue
 		}
 
-		// drop all connections connect to gateway
-		if a.gateway.Contains(tAddr.IP) {
-			continue
+		// drop all connections connect to blocking list
+		for _, b := range a.blocking {
+			if b.Contains(tAddr.IP) {
+				_ = conn.Close()
+
+				continue accept
+			}
 		}
 
 		metadata := &C.Metadata{
@@ -52,7 +57,7 @@ func (a *adapter) tcp() {
 			RawDstAddr: tAddr,
 		}
 
-		tunnel.Add(context.NewConnContext(conn, metadata))
+		tunnel.TCPIn() <- context.NewConnContext(conn, metadata)
 	}
 }
 
