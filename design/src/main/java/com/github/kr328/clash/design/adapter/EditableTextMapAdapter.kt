@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.github.kr328.clash.design.databinding.AdapterEditableTextMapBinding
 import com.github.kr328.clash.design.preference.TextAdapter
+import com.github.kr328.clash.design.preference.requestModelInputEntry
 import com.github.kr328.clash.design.util.layoutInflater
 
 class EditableTextMapAdapter<K, V>(
     private val context: Context,
+    val title: CharSequence,
     val values: MutableList<Pair<K, V>>,
     private val keyAdapter: TextAdapter<K>,
     private val valueAdapter: TextAdapter<V>,
@@ -35,6 +37,21 @@ class EditableTextMapAdapter<K, V>(
 
         holder.binding.keyView.text = keyAdapter.from(current.first)
         holder.binding.valueView.text = valueAdapter.from(current.second)
+        holder.binding.root.setOnClickListener {
+            val index = values.indexOf(current)
+            requestModelInputEntry(
+                context,
+                title,
+                keyAdapter.from(current.first),
+                valueAdapter.from(current.second)
+            ) {
+                if (index >= 0) {
+                    values.removeAt(index)
+                    values.add(index, Pair(keyAdapter.to(it.first), valueAdapter.to(it.second)))
+                    notifyItemChanged(index)
+                }
+            }
+        }
         holder.binding.deleteView.setOnClickListener {
             val index = values.indexOf(current)
 
@@ -49,3 +66,4 @@ class EditableTextMapAdapter<K, V>(
         return values.size
     }
 }
+

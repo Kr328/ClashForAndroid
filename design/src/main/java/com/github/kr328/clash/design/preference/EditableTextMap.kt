@@ -10,7 +10,6 @@ import com.github.kr328.clash.design.util.layoutInflater
 import com.github.kr328.clash.design.util.root
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
-import kotlin.coroutines.resume
 import kotlin.reflect.KMutableProperty0
 
 interface EditableTextMapPreference<K, V> : ClickablePreference {
@@ -96,16 +95,20 @@ private suspend fun <K, V> requestEditTextMap(
 
     val recyclerAdapter = EditableTextMapAdapter(
         context,
+        title,
         editableValue,
         keyAdapter,
         valueAdapter,
     )
 
     val result = requestEditableListOverlay(context, recyclerAdapter, title) {
-        val newItem = requestModelInputEntry(context, title)
-
-        if (newItem != null) {
-            recyclerAdapter.addElement(newItem.first, newItem.second)
+        requestModelInputEntry(
+            context,
+            title,
+            null,
+            null,
+        ) {
+            recyclerAdapter.addElement(it.first, it.second)
         }
     }
 
@@ -116,34 +119,32 @@ private suspend fun <K, V> requestEditTextMap(
     }
 }
 
-private suspend fun requestModelInputEntry(
+fun requestModelInputEntry(
     context: Context,
-    title: CharSequence
-): Pair<String, String>? {
-    return suspendCancellableCoroutine { ctx ->
-        val binding = DialogEditableMapTextFieldBinding
-            .inflate(context.layoutInflater, context.root, false)
+    title: CharSequence,
+    key: CharSequence? = null,
+    value: CharSequence? = null,
+    callback: (Pair<String, String>) -> Unit
+) {
+    val binding = DialogEditableMapTextFieldBinding
+        .inflate(context.layoutInflater, context.root, false)
 
-        val dialog = MaterialAlertDialogBuilder(context)
-            .setTitle(title)
-            .setNegativeButton(R.string.cancel) { _, _ -> }
-            .setPositiveButton(R.string.ok) { _, _ ->
-                val k = binding.keyView.text?.toString()?.trim() ?: ""
-                val v = binding.valueView.text?.toString()?.trim() ?: ""
+    binding.keyView.setText(key)
+    binding.valueView.setText(value)
 
-                if (k.isNotEmpty() && v.isNotEmpty()) {
-                    ctx.resume(k to v)
-                }
-            }
-            .setView(binding.root)
-            .create()
+    val dialog = MaterialAlertDialogBuilder(context)
+        .setTitle(title)
+        .setNegativeButton(R.string.cancel) { _, _ -> }
+        .setPositiveButton(R.string.ok) { _, _ ->
+            val k = binding.keyView.text?.toString()?.trim() ?: ""
+            val v = binding.valueView.text?.toString()?.trim() ?: ""
 
-        dialog.setOnCancelListener {
-            if (!ctx.isCompleted) {
-                ctx.resume(null)
+            if (k.isNotEmpty() && v.isNotEmpty()) {
+                callback.invoke(Pair(k, v))
             }
         }
+        .setView(binding.root)
+        .create()
 
-        dialog.show()
-    }
+    dialog.show()
 }
